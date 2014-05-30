@@ -11,6 +11,7 @@ if ARGV.empty?
   $stdout.print("                raise, b_call, b_return, thread_begin, thread_end\n")
   $stdout.print("    SOURCE_TRACER_RETURNS - show ruby method return values\n")
   $stdout.print("    SOURCE_TRACER_OMIT_PUTS - silence Kernel#puts from PROGRAM\n")
+  $stdout.print("    SOURCE_TRACER_NO_COLORS - they can be annoying at times\n")
   exit
 end
 

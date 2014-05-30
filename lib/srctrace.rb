@@ -16,12 +16,12 @@ end
 
 begin
   require 'term/ansicolor'
-  class String
-    include Term::ANSIColor
+  unless ENV["SOURCE_TRACER_NO_COLORS"]
+    class String
+      include Term::ANSIColor
+    end
   end
-  TERM_COLORS = false
 rescue LoadError
-  TERM_COLORS = true
 end
 
 class SourceTracer
