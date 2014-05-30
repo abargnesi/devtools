@@ -10,4 +10,5 @@ Gem containing ruby development tools.
 Trace through method execution of your program.
 
 .. code-block:: bash
+
   ruby -rsrctrace your-program.rb
