@@ -1,5 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name               = 'devtools'
+  spec.licenses           = ['MIT']
   spec.version            = '0.0.1'
   spec.summary            = %q{Quick tools for developing in ruby.}
   spec.description        = %q{Provides quick tools that can be run on the
@@ -9,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors            = ['Anthony Bargnesi']
   spec.date               = %q{2014-05-30}
   spec.email              = %q{abargnesi@gmail.com}
-  spec.files              = Dir.glob('lib/**/*.rb')
+  spec.files              = Dir.glob('lib/**/*.rb') << 'LICENSE'
   spec.executables        = Dir.glob('bin/*').map(&File.method(:basename))
   spec.homepage           = 'https://github.com/abargnesi/devtools'
   spec.require_paths      = ["lib"]
