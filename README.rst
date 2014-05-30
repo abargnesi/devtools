@@ -9,9 +9,22 @@ Gem containing ruby development tools.
 
 Trace through method execution of your program.
 
+Features:
+
+- Uses TracePoint API to provide return values
+- Environment variable control (run ``srctrace`` for options)
+- Terminal colors (``gem install term-ansicolor``)
+
 .. code-block:: bash
 
+  # run gem executable
+  srctrace your-program.rb
+
+  # require via ruby
   ruby -rsrctrace your-program.rb
+
+  # show only line, call, and return event types
+  SOURCE_TRACER_FILTERS="line,call,return" bin/srctrace your-program.rb
 
 example output:
 

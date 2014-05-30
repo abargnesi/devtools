@@ -70,7 +70,7 @@ class SourceTracer
         out << format(:source, source.rjust_relative(140, out))
         stdout.print(out)
 
-        if SourceTracer::show_return_values? and t.event == :return
+        if SourceTracer::show_return_values? and [:return, :b_return, :c_return].include? t.event
           ret = t.return_value
           stdout.print(format(:return, "\u21B3 #{ret.class}: #{ret.inspect}\n"))
         end
@@ -139,31 +139,11 @@ end
 
 SCRIPT_LINES__ = {} unless defined? SCRIPT_LINES__
 
-if $0 == __FILE__
-  if ARGV.empty?
-    $stdout.print("usage: ruby -rsrctrace PROGRAM\n")
-    $stdout.print("     * ruby srctrace.rb PROGRAM\n")
-    $stdout.print("     * ./srctrace.rb PROGRAM\n\n")
-    $stdout.print("  environment vars\n")
-    $stdout.print("    SOURCE_TRACER_FILTERS - comma-separated list of trace events to print\n")
-    $stdout.print("      options - line, class, end, call, return, c_call, c_return,\n")
-    $stdout.print("                raise, b_call, b_return, thread_begin, thread_end\n")
-    $stdout.print("    SOURCE_TRACER_RETURNS - show ruby method return values\n")
-    $stdout.print("    SOURCE_TRACER_OMIT_PUTS - silence Kernel#puts from PROGRAM\n")
-    exit
-  end
-
-  $0 = ARGV[0]
-  ARGV.shift
-  SourceTracer.on
-  require $0
-else
 # Called with "-r"?
-  count = caller.count {|bt| %r%/rubygems/core_ext/kernel_require\.rb:% !~ bt}
-  if (defined?(Gem) and count == 0) or
-     (!defined?(Gem) and count <= 1)
-    SourceTracer.on
-  end
+count = caller.count {|bt| %r%/rubygems/core_ext/kernel_require\.rb:% !~ bt}
+if (defined?(Gem) and count == 0) or
+   (!defined?(Gem) and count <= 1)
+  SourceTracer.on
 end
 # vim: ts=2 sts=2 sw=2
 # encoding: utf-8

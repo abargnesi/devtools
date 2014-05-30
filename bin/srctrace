@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+require 'pathname'
+CWD = Dir.pwd
+if ARGV.empty?
+  $stdout.print("usage: ruby -rsrctrace PROGRAM\n")
+  $stdout.print("     * ruby srctrace.rb PROGRAM\n")
+  $stdout.print("     * ./srctrace.rb PROGRAM\n\n")
+  $stdout.print("  environment vars\n")
+  $stdout.print("    SOURCE_TRACER_FILTERS - comma-separated list of trace events to print\n")
+  $stdout.print("      options - line, class, end, call, return, c_call, c_return,\n")
+  $stdout.print("                raise, b_call, b_return, thread_begin, thread_end\n")
+  $stdout.print("    SOURCE_TRACER_RETURNS - show ruby method return values\n")
+  $stdout.print("    SOURCE_TRACER_OMIT_PUTS - silence Kernel#puts from PROGRAM\n")
+  exit
+end
+
+require 'srctrace'
+$0 = ARGV[0]
+ARGV.shift
+SourceTracer.on
+
+source_path = Pathname(CWD) + $0
+require source_path
+# vim: ts=2 sts=2 sw=2
+# encoding: utf-8
